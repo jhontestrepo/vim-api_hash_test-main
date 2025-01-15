@@ -1,0 +1,12 @@
+stages:
+  - hash
+
+generate_hash:
+  stage: hash
+  script:
+    - find ./test/src/main -type f -print0 | sort -z | xargs -0 sha256sum | sha256sum > codebase.sha256
+    - echo "Hash generado correctamente:"
+    - cat codebase.sha256
+  artifacts:
+    paths:
+      - codebase.sha256
